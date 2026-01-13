@@ -1,0 +1,7 @@
+{
+  "name": "NewRead Landing Page",
+  "description": "High-conversion landing page for NewRead, a specialized utility management platform for water and gas measurement.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
