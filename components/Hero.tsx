@@ -1,104 +1,120 @@
 
-import React, { Suspense } from 'react';
-import { ArrowRight, Play, Activity } from 'lucide-react';
+import React, { Suspense, useRef } from 'react';
+import { ArrowRight, CheckCircle2, ShieldCheck, Zap } from 'lucide-react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Float, Sphere, MeshDistortMaterial } from '@react-three/drei';
+import { Float, Sphere, MeshDistortMaterial } from '@react-three/drei';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const ThreeBackground = () => (
-  <div className="absolute inset-0 z-0 opacity-20">
+  <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
     <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
       <ambientLight intensity={1.5} />
       <directionalLight position={[10, 10, 5]} intensity={2} />
       <Suspense fallback={null}>
-        <Float speed={2} rotationIntensity={1.5} floatIntensity={2}>
-          <Sphere args={[1, 100, 200]} scale={2.4}>
+        <Float speed={1.2} rotationIntensity={0.3} floatIntensity={0.8}>
+          <Sphere args={[1.8, 100, 200]} scale={2.2}>
             <MeshDistortMaterial
               color="#007BFF"
-              speed={3}
-              distort={0.4}
+              speed={1.5}
+              distort={0.45}
               radius={1}
             />
           </Sphere>
         </Float>
       </Suspense>
-      <OrbitControls enableZoom={false} enablePan={false} />
     </Canvas>
   </div>
 );
 
 const Hero: React.FC<{ onOpenAgent: () => void }> = ({ onOpenAgent }) => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--x', `${x}px`);
+    e.currentTarget.style.setProperty('--y', `${y}px`);
+  };
+
   return (
-    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-slate-50">
-      <ThreeBackground />
+    <section ref={containerRef} className="relative min-h-[110vh] flex items-center pt-40 pb-32 overflow-hidden bg-white">
+      <motion.div style={{ scale: bgScale }} className="absolute inset-0 z-0">
+        <ThreeBackground />
+      </motion.div>
       
-      {/* Dynamic Background Gradients */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/5 rounded-full blur-[160px] pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-orange-500/5 rounded-full blur-[140px] pointer-events-none"></div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-3 bg-white/50 border border-slate-200 px-5 py-2.5 rounded-full text-slate-900 text-sm font-semibold mb-8 backdrop-blur-md">
-              <span className="flex h-2.5 w-2.5 rounded-full bg-[#007BFF] animate-pulse"></span>
-              NewRead Enterprise <span className="text-slate-300">|</span> <span className="text-[#007BFF]">High Precision IoT</span>
-            </div>
+      <div className="max-w-[1800px] mx-auto px-6 md:px-12 relative z-10 w-full">
+        <motion.div style={{ y: textY, opacity }} className="relative">
+          <header className="flex flex-col mb-16">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-4 mb-6"
+            >
+              <div className="h-[2px] w-12 bg-blue-600"></div>
+              <span className="text-blue-600 font-black uppercase tracking-[0.5em] text-[10px]">
+                High-Performance Utilities
+              </span>
+            </motion.div>
             
-            <h1 className="text-6xl lg:text-8xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tighter">
-              Gestão Inteligente de <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#007BFF] to-[#FFB35B]">Utilities</span>
+            <h1 className="font-huge font-black text-slate-900 mb-0 tracking-tighter">
+              NEW<span className="text-blue-600">READ</span>
             </h1>
-            
-            <p className="text-xl text-slate-600 mb-12 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-              A plataforma definitiva para empresas de medição individualizada. Elimine glosas, automatize o campo e garanta transparência absoluta.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
-              <button 
-                onClick={onOpenAgent}
-                className="bg-[#007BFF] hover:bg-[#0069d9] text-white px-10 py-5 rounded-2xl font-bold text-xl flex items-center justify-center gap-2 transition-all shadow-2xl shadow-blue-500/30 group active:scale-95"
-              >
-                Agendar Demonstração
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-900 px-10 py-5 rounded-2xl font-bold text-xl flex items-center justify-center gap-2 transition-all shadow-sm">
-                <Play className="w-6 h-6 fill-[#FFB35B] text-[#FFB35B]" />
-                Assista o Vídeo
-              </button>
-            </div>
+            <h2 className="font-huge font-black text-outline -mt-4 md:-mt-12 select-none uppercase">
+              Precision
+            </h2>
+          </header>
 
-            <div className="mt-16 flex items-center justify-center lg:justify-start gap-12">
-              <div className="flex flex-col">
-                <span className="text-3xl font-black text-slate-900">40%</span>
-                <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#007BFF]">Redução de Glosas</span>
-              </div>
-              <div className="w-px h-12 bg-slate-200"></div>
-              <div className="flex flex-col">
-                <span className="text-3xl font-black text-slate-900">100k+</span>
-                <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#007BFF]">Unidades Ativas</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative hidden lg:block">
-            <div className="relative z-20 group">
-              <div className="absolute -inset-10 bg-[#007BFF]/5 blur-[120px] rounded-full group-hover:bg-[#007BFF]/10 transition-all duration-1000"></div>
+          <div className="grid lg:grid-cols-12 gap-16 items-end">
+            <div className="lg:col-span-6">
+              <p className="text-2xl md:text-3xl text-slate-600 mb-14 font-medium leading-[1.2] max-w-2xl">
+                Elevamos a medição individualizada ao nível de <span className="text-slate-900 font-black italic">Telemetria Enterprise</span>. Rapidez cirúrgica e controle absoluto.
+              </p>
               
-              <div className="relative bg-white border border-slate-200 rounded-[40px] shadow-2xl p-2">
-                <div className="bg-slate-50 rounded-[32px] border border-slate-100 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&q=80&w=800" 
-                    alt="NewRead Platform Dashboard" 
-                    className="w-full h-auto group-hover:scale-105 transition-transform duration-[2000ms]"
-                  />
+              <div className="flex flex-wrap gap-8 items-center">
+                <button 
+                  onMouseMove={handleMouseMove}
+                  onClick={onOpenAgent}
+                  className="magnetic-glow group bg-slate-900 text-white px-14 py-8 rounded-full font-black text-xl flex items-center gap-5 transition-all hover:bg-blue-600 active:scale-95 shadow-[0_20px_50px_rgba(0,123,255,0.25)]"
+                >
+                  START ENGINE
+                  <ArrowRight size={26} className="group-hover:translate-x-3 transition-transform duration-500" />
+                </button>
+                <div className="flex flex-col">
+                  <span className="text-blue-600 font-black text-[10px] uppercase tracking-widest">Pilot Project</span>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">3 Months Trial Available</span>
                 </div>
               </div>
-              
-              <div className="absolute -top-10 -right-10 bg-[#FFB35B] text-slate-950 p-6 rounded-[30px] shadow-2xl font-black text-lg flex items-center gap-3 animate-bounce shadow-orange-500/20">
-                <Activity size={24} />
-                LIVE SYNC
-              </div>
+            </div>
+
+            <div className="lg:col-span-6 flex flex-wrap justify-center lg:justify-end gap-16">
+              {[
+                { label: 'Data Speed', val: '4.2ms', icon: <Zap size={18}/> },
+                { label: 'Uptime', val: '99.9%', icon: <ShieldCheck size={18}/> },
+                { label: 'Accuracy', val: '±0.1%', icon: <CheckCircle2 size={18}/> }
+              ].map((stat, i) => (
+                <div key={i} className="flex flex-col items-end text-right group">
+                  <div className="text-blue-600 mb-4 bg-blue-50 p-3 rounded-2xl group-hover:scale-110 transition-transform duration-500">{stat.icon}</div>
+                  <span className="text-6xl font-black text-slate-900 leading-none mb-2 tracking-tighter">{stat.val}</span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">{stat.label}</span>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
+        </motion.div>
+      </div>
+      
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-30">
+        <span className="text-[8px] font-black uppercase tracking-[0.6em]">Scroll to Deploy</span>
+        <div className="w-px h-24 bg-gradient-to-b from-blue-600 via-blue-400 to-transparent"></div>
       </div>
     </section>
   );

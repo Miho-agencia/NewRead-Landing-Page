@@ -1,71 +1,122 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronRight } from 'lucide-react';
 import Logo from './Logo';
+// Added missing imports from framer-motion
+import { motion, AnimatePresence } from 'framer-motion';
 
-const Navbar: React.FC<{ onOpenAgent: () => void }> = ({ onOpenAgent }) => {
+interface NavbarProps {
+  onOpenAgent: () => void;
+  onViewChange: (view: 'home' | 'pricing') => void;
+  currentView: 'home' | 'pricing';
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onOpenAgent, onViewChange, currentView }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLinkClick = (e: React.MouseEvent, href: string, isAnchor: boolean) => {
+    if (isAnchor) {
+      if (currentView !== 'home') {
+        onViewChange('home');
+        // Small delay to allow home to mount before scrolling
+        setTimeout(() => {
+          const el = document.querySelector(href);
+          el?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      } else {
+        const el = document.querySelector(href);
+        el?.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      onViewChange('pricing');
+    }
+    setIsMobileMenuOpen(false);
+  };
+
+  const navLinks = [
+    { name: 'Solução', href: '#solucao', isAnchor: true },
+    { name: 'Diferenciais', href: '#diferenciais', isAnchor: true },
+    { name: 'Preços', href: '/precos', isAnchor: false },
+  ];
+
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/90 backdrop-blur-lg border-b border-slate-200 py-3 shadow-md' : 'bg-transparent py-6'
-      }`}
-    >
+    <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+      isScrolled ? 'bg-white/90 backdrop-blur-xl border-b border-slate-200 py-4 shadow-lg' : 'bg-transparent py-8'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <a href="#" className="transform hover:scale-105 transition-transform">
+          <button onClick={() => onViewChange('home')} className="hover:scale-105 transition-all">
             <Logo variant="dark" />
-          </a>
+          </button>
 
-          <div className="hidden md:flex items-center gap-10">
-            <a href="#solucao" className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-semibold uppercase tracking-wider">Solução</a>
-            <a href="#diferenciais" className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-semibold uppercase tracking-wider">Diferenciais</a>
-            <a href="#precos" className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-semibold uppercase tracking-wider">Preços</a>
+          <div className="hidden md:flex items-center gap-4">
+            <div className="flex items-center bg-slate-100/50 p-1 rounded-2xl border border-slate-200/50">
+              {navLinks.map((link) => (
+                <button 
+                  key={link.name}
+                  onClick={(e) => handleLinkClick(e, link.href, link.isAnchor)}
+                  className={`px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
+                    (link.isAnchor && currentView === 'home') || (!link.isAnchor && currentView === 'pricing')
+                    ? 'bg-white text-blue-600 shadow-sm' 
+                    : 'text-slate-500 hover:text-slate-900'
+                  }`}
+                >
+                  {link.name}
+                </button>
+              ))}
+            </div>
             <button 
               onClick={onOpenAgent}
-              className="bg-[#007BFF] hover:bg-[#0069d9] text-white px-7 py-2.5 rounded-full font-bold transition-all shadow-lg shadow-blue-500/20 active:scale-95"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-2xl font-black text-sm transition-all shadow-xl shadow-blue-500/20 active:scale-95 flex items-center gap-2"
             >
-              Agendar Demonstração
+              Agendar Demo
+              <ChevronRight size={16} />
             </button>
           </div>
 
-          <div className="md:hidden">
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-slate-900 p-2">
-              {isMobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
-            </button>
-          </div>
+          <button 
+            className="md:hidden p-2 text-slate-900" 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-[72px] bg-white z-40 p-8 animate-in fade-in slide-in-from-right duration-300">
-          <div className="flex flex-col gap-8">
-            <a href="#solucao" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold text-slate-900 border-b border-slate-100 pb-4">Solução</a>
-            <a href="#diferenciais" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold text-slate-900 border-b border-slate-100 pb-4">Diferenciais</a>
-            <a href="#precos" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold text-slate-900 border-b border-slate-100 pb-4">Preços</a>
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-100 p-8 flex flex-col gap-6 shadow-2xl"
+          >
+            {navLinks.map((link) => (
+              <button 
+                key={link.name}
+                onClick={(e) => handleLinkClick(e, link.href, link.isAnchor)}
+                className="text-2xl font-black text-slate-900 text-left border-b border-slate-50 pb-4"
+              >
+                {link.name}
+              </button>
+            ))}
             <button 
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onOpenAgent();
-              }}
-              className="bg-[#007BFF] text-white w-full py-5 rounded-2xl font-bold text-xl"
+              onClick={onOpenAgent}
+              className="bg-blue-600 text-white py-5 rounded-2xl font-black text-xl"
             >
-              Agendar Demonstração
+              Falar com Consultor
             </button>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

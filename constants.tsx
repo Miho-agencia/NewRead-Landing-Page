@@ -65,27 +65,27 @@ export const PILLARS: Pillar[] = [
     id: "reader",
     title: "App Leiturista",
     subtitle: "Ferramenta de Alta Performance",
-    description: "Foco total na produtividade de campo com validação em tempo real e modo offline.",
+    description: "Otimize o trabalho de campo com rotas inteligentes, geolocalização obrigatória e validação de erros por foto diretamente no app.",
     features: [
-      "Operação Offline-first",
-      "Foto obrigatória do hidrômetro",
-      "Check de geolocalização GPS",
-      "Validação de leitura fora de curva"
+      "Rotas georreferenciadas",
+      "Foto obrigatória em caso de erro",
+      "Sincronização offline-first",
+      "Check de consumo negativo"
     ],
-    image: "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=1200"
+    image: "reader-mockup"
   },
   {
     id: "resident",
     title: "App do Morador",
     subtitle: "Transparência Absoluta",
-    description: "Um diferencial exclusivo NewRead: o morador acompanha em tempo real fotos das leituras, gráficos de tendência e estimativa de conta antes do boleto chegar.",
+    description: "O único app que oferece transparência total: fotos das leituras, histórico detalhado e acompanhamento de consumo em tempo real.",
     features: [
       "Histórico com evidência fotográfica",
       "Gráficos de tendência e média diária",
       "Alertas de consumo atípico via Push",
       "Perfil com gestão de preferências"
     ],
-    image: "resident-mockup" // ID especial para renderizar o componente de mockup
+    image: "resident-mockup"
   }
 ];
 
@@ -113,7 +113,14 @@ export const PRICING: PricingPlan[] = [
     price: "R$ 299",
     period: "/mês",
     description: "Ideal para pequenas empresas de medição iniciando a digitalização.",
-    features: ["Até 500 unidades", "App Leiturista Básico", "Manager Web Standard", "Suporte via Email"],
+    features: [
+      "Até 500 unidades",
+      "App Leiturista (Online)",
+      "Manager Web Standard",
+      "Suporte via Email",
+      "Relatórios Mensais",
+      "Exportação CSV/Excel"
+    ],
     cta: "Começar Agora"
   },
   {
@@ -121,7 +128,15 @@ export const PRICING: PricingPlan[] = [
     price: "R$ 899",
     period: "/mês",
     description: "Perfeito para operações consolidadas que buscam automação total.",
-    features: ["Unidades Ilimitadas", "App Leiturista Pro (Offline)", "BI e Dashboards Avançados", "App do Morador Customizado", "Suporte Prioritário"],
+    features: [
+      "Unidades Ilimitadas",
+      "App Leiturista Pro (Offline-first)",
+      "BI e Dashboards Avançados",
+      "App do Morador Customizado",
+      "Suporte Prioritário 24/7",
+      "Validação por Foto Ilimitada",
+      "Gestão de Rotas Inteligentes"
+    ],
     cta: "Agendar Demo",
     highlighted: true
   },
@@ -130,7 +145,15 @@ export const PRICING: PricingPlan[] = [
     price: "Sob Consulta",
     period: "",
     description: "Soluções customizadas para grandes administradoras e utilities.",
-    features: ["White Label", "Integração via API Rest", "SLA Dedicado", "Infraestrutura Exclusiva", "Onboarding Presencial"],
+    features: [
+      "White Label (Sua Marca)",
+      "Integração via API Rest",
+      "SLA Dedicado",
+      "Infraestrutura Exclusiva",
+      "Onboarding Presencial",
+      "Gestão Multi-empresa",
+      "Consultoria de Processos"
+    ],
     cta: "Falar com Consultor"
   }
 ];
