@@ -16,23 +16,30 @@
         scroll-behavior: smooth;
       }
       .gradient-hero {
-        background: radial-gradient(circle at top right, #007BFF 0%, #020617 60%, #020617 100%);
+        background: radial-gradient(circle at top right, #007BFF 0%, #f8fafc 60%, #f8fafc 100%);
       }
       .glass-card {
-        background: rgba(255, 255, 255, 0.03);
+        background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.05);
       }
       .text-glow-blue {
-        text-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+        text-shadow: 0 0 20px rgba(0, 123, 255, 0.15);
       }
       .text-glow-orange {
-        text-shadow: 0 0 20px rgba(255, 179, 91, 0.3);
+        text-shadow: 0 0 20px rgba(255, 179, 91, 0.15);
       }
-      /* Custom selection color for brand identity */
       ::selection {
         background: #007BFF;
         color: white;
+      }
+      /* Hide scrollbar but keep functionality */
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
     </style>
   <script type="importmap">
@@ -45,12 +52,13 @@
     "framer-motion": "https://esm.sh/framer-motion@^11.11.11",
     "three": "https://esm.sh/three@0.170.0",
     "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.17.10",
-    "@react-three/drei": "https://esm.sh/@react-three/drei@9.114.0"
+    "@react-three/drei": "https://esm.sh/@react-three/drei@9.114.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0"
   }
 }
 </script>
 </head>
-  <body class="bg-slate-950 text-slate-100 antialiased overflow-x-hidden">
+  <body class="bg-white text-slate-900 antialiased overflow-x-hidden">
     <div id="root"></div>
   </body>
 </html>

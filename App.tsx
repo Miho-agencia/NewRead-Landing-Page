@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Problems from './components/Problems';
@@ -8,10 +8,19 @@ import Features from './components/Features';
 import Pricing from './components/Pricing';
 import Footer from './components/Footer';
 import StickyCTA from './components/StickyCTA';
+import SalesAgent from './components/SalesAgent';
 
 const App: React.FC = () => {
-  // Simple SEO structured data injection
+  const [isAgentOpen, setIsAgentOpen] = useState(false);
+
   useEffect(() => {
+    const handleOpenAgent = (e: Event) => {
+      e.preventDefault();
+      setIsAgentOpen(true);
+    };
+
+    window.addEventListener('open-sales-agent', handleOpenAgent);
+    
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.innerHTML = JSON.stringify({
@@ -32,26 +41,30 @@ const App: React.FC = () => {
       }
     });
     document.head.appendChild(script);
+    
     return () => {
-      document.head.removeChild(script);
+      window.removeEventListener('open-sales-agent', handleOpenAgent);
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
     };
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 selection:bg-cyan-500/30 selection:text-cyan-400">
-      <Navbar />
+    <div className="min-h-screen bg-slate-50 selection:bg-blue-600/10 selection:text-blue-700">
+      <Navbar onOpenAgent={() => setIsAgentOpen(true)} />
       
       <main>
-        <Hero />
+        <Hero onOpenAgent={() => setIsAgentOpen(true)} />
         
         {/* Social Proof Bar */}
-        <div className="py-8 border-y border-white/5 bg-slate-950/50">
-          <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-center items-center gap-8 md:gap-20 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
-            <span className="text-xl font-bold text-white tracking-widest">UTILITY GROUP</span>
-            <span className="text-xl font-bold text-white tracking-widest">CONDO_FLOW</span>
-            <span className="text-xl font-bold text-white tracking-widest">MEASURE_PRO</span>
-            <span className="text-xl font-bold text-white tracking-widest">WATER_SENSE</span>
-            <span className="text-xl font-bold text-white tracking-widest">GAS_MASTER</span>
+        <div className="py-12 border-y border-slate-200 bg-white">
+          <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-center items-center gap-8 md:gap-20 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+            <span className="text-xl font-bold text-slate-900 tracking-widest">UTILITY GROUP</span>
+            <span className="text-xl font-bold text-slate-900 tracking-widest">CONDO_FLOW</span>
+            <span className="text-xl font-bold text-slate-900 tracking-widest">MEASURE_PRO</span>
+            <span className="text-xl font-bold text-slate-900 tracking-widest">WATER_SENSE</span>
+            <span className="text-xl font-bold text-slate-900 tracking-widest">GAS_MASTER</span>
           </div>
         </div>
 
@@ -60,14 +73,17 @@ const App: React.FC = () => {
         <Features />
         
         {/* Mid-CTA Section */}
-        <section className="py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-cyan-600 opacity-10"></div>
+        <section className="py-24 relative overflow-hidden bg-slate-900">
+          <div className="absolute inset-0 bg-blue-600 opacity-20"></div>
           <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
             <h3 className="text-4xl font-extrabold text-white mb-6">Pronto para digitalizar sua empresa de medição?</h3>
             <p className="text-xl text-slate-300 mb-10">
               Junte-se a centenas de empresas que já reduziram custos operacionais e aumentaram a precisão de suas leituras.
             </p>
-            <button className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-10 py-5 rounded-2xl font-black text-xl shadow-2xl shadow-cyan-500/30 transition-all transform hover:scale-105 active:scale-95">
+            <button 
+              onClick={() => setIsAgentOpen(true)}
+              className="bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-2xl font-black text-xl shadow-2xl shadow-blue-600/30 transition-all transform hover:scale-105 active:scale-95"
+            >
               Solicitar Orçamento Grátis
             </button>
           </div>
@@ -78,6 +94,8 @@ const App: React.FC = () => {
 
       <Footer />
       <StickyCTA />
+      
+      <SalesAgent isOpen={isAgentOpen} onClose={() => setIsAgentOpen(false)} />
     </div>
   );
 };

@@ -17,11 +17,11 @@ import {
 import { Feature, Pillar, PricingPlan } from './types';
 
 export const COLORS = {
-  primary: '#020617',    // Deep Dark
+  primary: '#ffffff',    // White
   secondary: '#007BFF', // Brand Blue
   accent: '#FFB35B',    // Brand Orange
-  textMuted: '#94a3b8', // Slate 400
-  white: '#ffffff'
+  textMuted: '#64748b', // Slate 500
+  dark: '#0f172a'       // Slate 900
 };
 
 export const PROBLEMS = [
