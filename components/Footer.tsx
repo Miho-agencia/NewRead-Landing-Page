@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Instagram, Linkedin, Twitter } from 'lucide-react';
+import { Instagram, Linkedin, Twitter, Phone, MapPin, Building2 } from 'lucide-react';
 import Logo from './Logo';
 
 const Footer: React.FC = () => {
@@ -29,12 +29,26 @@ const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h5 className="text-slate-900 font-black text-sm uppercase tracking-[0.2em] mb-8">Plataforma</h5>
-            <ul className="space-y-5 text-slate-600 font-medium">
-              <li><a href="#" className="hover:text-[#007BFF] transition-colors">Manager Web</a></li>
-              <li><a href="#" className="hover:text-[#007BFF] transition-colors">App Leiturista</a></li>
-              <li><a href="#" className="hover:text-[#007BFF] transition-colors">App do Morador</a></li>
-              <li><a href="#" className="hover:text-[#007BFF] transition-colors">API & Integrações</a></li>
+            <h5 className="text-slate-900 font-black text-sm uppercase tracking-[0.2em] mb-8">Informações de Contato</h5>
+            <ul className="space-y-5 text-slate-600 font-medium text-sm">
+              <li className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-[#007BFF]">
+                  <Phone size={16} />
+                </div>
+                <span>(11) 4003-0000</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-[#007BFF] mt-1">
+                  <MapPin size={16} />
+                </div>
+                <span>Av. Paulista, 1000, 15º Andar<br />Bela Vista, São Paulo - SP</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-[#007BFF]">
+                  <Building2 size={16} />
+                </div>
+                <span>CNPJ: 00.000.000/0001-00</span>
+              </li>
             </ul>
           </div>
 

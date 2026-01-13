@@ -9,6 +9,7 @@ import Pricing from './components/Pricing';
 import Footer from './components/Footer';
 import StickyCTA from './components/StickyCTA';
 import SalesAgent from './components/SalesAgent';
+import FloatingAgentButton from './components/FloatingAgentButton';
 
 const App: React.FC = () => {
   const [isAgentOpen, setIsAgentOpen] = useState(false);
@@ -95,6 +96,10 @@ const App: React.FC = () => {
       <Footer />
       <StickyCTA />
       
+      {/* Botão Flutuante persistente para o Agente IA */}
+      <FloatingAgentButton onClick={() => setIsAgentOpen(true)} />
+      
+      {/* O Agente de Vendas IA */}
       <SalesAgent isOpen={isAgentOpen} onClose={() => setIsAgentOpen(false)} />
     </div>
   );

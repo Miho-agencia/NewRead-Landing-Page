@@ -78,14 +78,14 @@ export const PILLARS: Pillar[] = [
     id: "resident",
     title: "App do Morador",
     subtitle: "Transparência Absoluta",
-    description: "O morador no controle, visualizando histórico, fotos e acompanhando o consumo diário.",
+    description: "Um diferencial exclusivo NewRead: o morador acompanha em tempo real fotos das leituras, gráficos de tendência e estimativa de conta antes do boleto chegar.",
     features: [
-      "Histórico de fotos das leituras",
-      "Gráficos de consumo mensal",
-      "Segunda via de boletos (Integração)",
-      "Notificações de leitura realizada"
+      "Histórico com evidência fotográfica",
+      "Gráficos de tendência e média diária",
+      "Alertas de consumo atípico via Push",
+      "Perfil com gestão de preferências"
     ],
-    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&q=80&w=1200"
+    image: "resident-mockup" // ID especial para renderizar o componente de mockup
   }
 ];
 

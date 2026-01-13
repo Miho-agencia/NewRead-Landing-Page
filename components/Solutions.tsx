@@ -3,6 +3,7 @@ import React from 'react';
 import { PILLARS } from '../constants';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import AppMockup from './AppMockup';
 
 const Solutions: React.FC = () => {
   const scrollToPricing = () => {
@@ -75,52 +76,63 @@ const Solutions: React.FC = () => {
                 </div>
               </motion.div>
 
-              {/* Animated Image Pillar */}
+              {/* Visual Pillar */}
               <div className="flex-1 w-full">
-                <motion.div 
-                  className="relative group"
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-                >
-                  <div className="absolute -inset-10 bg-gradient-to-tr from-blue-600/10 to-orange-500/10 rounded-[48px] blur-3xl opacity-30 group-hover:opacity-60 transition-opacity duration-700"></div>
-                  
-                  <div className="relative p-2 bg-white border border-slate-200 rounded-[40px] overflow-hidden shadow-2xl">
-                    <div className="relative rounded-[32px] overflow-hidden bg-slate-100">
-                      <motion.img 
-                        src={pillar.image} 
-                        alt={pillar.title} 
-                        className="w-full h-[350px] md:h-[500px] object-cover group-hover:scale-105 transition-all duration-1000 transform"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent"></div>
-                    </div>
+                {pillar.id === 'resident' ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                  >
+                    <AppMockup />
+                  </motion.div>
+                ) : (
+                  <motion.div 
+                    className="relative group"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+                  >
+                    <div className="absolute -inset-10 bg-gradient-to-tr from-blue-600/10 to-orange-500/10 rounded-[48px] blur-3xl opacity-30 group-hover:opacity-60 transition-opacity duration-700"></div>
                     
-                    <motion.div 
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.5, duration: 0.5 }}
-                      viewport={{ once: true }}
-                      className="absolute bottom-8 left-8 right-8 p-6 bg-white/90 backdrop-blur-xl border border-slate-200 rounded-3xl shadow-xl hidden md:block"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-2xl bg-[#007BFF] flex items-center justify-center shadow-lg shadow-blue-500/30">
-                            <CheckCircle2 className="text-white w-7 h-7" />
-                          </div>
-                          <div>
-                            <p className="text-[10px] text-[#FFB35B] font-black uppercase tracking-[0.2em] mb-0.5">Módulo Ativo</p>
-                            <p className="text-slate-900 font-black text-lg tracking-tight">{pillar.title}</p>
-                          </div>
-                        </div>
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-widest border border-emerald-500/20">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                          Online
-                        </span>
+                    <div className="relative p-2 bg-white border border-slate-200 rounded-[40px] overflow-hidden shadow-2xl">
+                      <div className="relative rounded-[32px] overflow-hidden bg-slate-100">
+                        <motion.img 
+                          src={pillar.image} 
+                          alt={pillar.title} 
+                          className="w-full h-[350px] md:h-[500px] object-cover group-hover:scale-105 transition-all duration-1000 transform"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent"></div>
                       </div>
-                    </motion.div>
-                  </div>
-                </motion.div>
+                      
+                      <motion.div 
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.5, duration: 0.5 }}
+                        viewport={{ once: true }}
+                        className="absolute bottom-8 left-8 right-8 p-6 bg-white/90 backdrop-blur-xl border border-slate-200 rounded-3xl shadow-xl hidden md:block"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 rounded-2xl bg-[#007BFF] flex items-center justify-center shadow-lg shadow-blue-500/30">
+                              <CheckCircle2 className="text-white w-7 h-7" />
+                            </div>
+                            <div>
+                              <p className="text-[10px] text-[#FFB35B] font-black uppercase tracking-[0.2em] mb-0.5">Módulo Ativo</p>
+                              <p className="text-slate-900 font-black text-lg tracking-tight">{pillar.title}</p>
+                            </div>
+                          </div>
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-widest border border-emerald-500/20">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Online
+                          </span>
+                        </div>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                )}
               </div>
             </div>
           ))}
