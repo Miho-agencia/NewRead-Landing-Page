@@ -1,69 +1,76 @@
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { ArrowRight, Zap } from 'lucide-react';
 
 const StickyCTA: React.FC = () => {
+  const { scrollY, scrollYProgress } = useScroll();
   const [isVisible, setIsVisible] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const fullHeight = document.documentElement.scrollHeight;
-      const scrollPercent = (currentScrollY / (fullHeight - windowHeight)) * 100;
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() || 0;
+    const isScrollingDown = latest > previous;
+    const isPastHalf = scrollYProgress.get() > 0.5;
 
-      if (scrollPercent > 50 && currentScrollY > lastScrollY) {
-        setIsVisible(true);
-      } else if (currentScrollY < lastScrollY || scrollPercent <= 50) {
-        setIsVisible(false);
-      }
+    // Aparece após 50% se estiver descendo, desaparece se subir
+    if (isPastHalf && isScrollingDown) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  });
 
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
-
-  const scrollToPricing = () => {
-    document.getElementById('precos')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const dispatchOpenAgent = () => {
-    window.dispatchEvent(new CustomEvent('open-sales-agent'));
+  const handleAction = () => {
+    // Se estiver na home, vai para preços, se não, abre o agente
+    const pricingSection = document.getElementById('precos');
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.dispatchEvent(new CustomEvent('open-sales-agent'));
+    }
   };
 
   return (
-    <div 
-      className={`fixed bottom-0 left-0 right-0 z-[60] p-6 transition-all duration-700 transform ${
-        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-      }`}
-    >
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white/95 backdrop-blur-2xl border border-slate-200 shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[32px] p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative">
-          <div className="absolute top-0 left-0 w-1.5 h-full bg-[#007BFF]"></div>
-          <div className="absolute bottom-0 right-0 w-32 h-32 bg-blue-500/5 blur-3xl pointer-events-none"></div>
-          
-          <div className="text-center md:text-left">
-            <h4 className="text-slate-900 font-black text-xl md:text-2xl tracking-tighter leading-tight">
-              Pronto para otimizar sua <span className="text-[#007BFF]">gestão de utilities?</span>
-            </h4>
-            <p className="text-slate-600 text-sm font-medium mt-1">
-              Escalabilidade e precisão cirúrgica para sua empresa de medição.
-            </p>
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div 
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 100, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
+          className="fixed bottom-0 left-0 right-0 z-[80] p-4 md:p-6"
+        >
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-slate-900/95 backdrop-blur-2xl border border-white/10 shadow-[0_-20px_50px_rgba(0,123,255,0.15)] rounded-[2rem] p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 overflow-hidden relative group">
+              {/* Decorative background element */}
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-600/10 to-transparent opacity-50 pointer-events-none"></div>
+              
+              <div className="flex items-center gap-4 relative z-10">
+                <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 shrink-0 hidden sm:flex">
+                  <Zap size={24} fill="currentColor" />
+                </div>
+                <div className="text-center md:text-left">
+                  <h4 className="text-white font-black text-lg md:text-xl tracking-tighter leading-tight">
+                    Pronto para otimizar sua <span className="text-blue-400">gestão de utilities?</span>
+                  </h4>
+                  <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1 opacity-70">
+                    Tecnologia Enterprise. Resultados Reais.
+                  </p>
+                </div>
+              </div>
+              
+              <button 
+                onClick={handleAction}
+                className="w-full md:w-auto bg-blue-600 hover:bg-blue-500 text-white px-10 py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 transition-all transform hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/20 group/btn relative z-10"
+              >
+                Agendar Demonstração
+                <ArrowRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
+              </button>
+            </div>
           </div>
-          
-          <button 
-            onClick={dispatchOpenAgent}
-            className="bg-[#007BFF] hover:bg-[#0069d9] text-white px-10 py-4 rounded-2xl font-black text-lg flex items-center gap-3 transition-all transform hover:scale-105 active:scale-95 whitespace-nowrap shadow-xl shadow-blue-500/30"
-          >
-            Solicitar Demonstração
-            <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
-          </button>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

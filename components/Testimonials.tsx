@@ -6,31 +6,31 @@ import { Quote, Star } from 'lucide-react';
 const Testimonials: React.FC = () => {
   const reviews = [
     {
-      name: "Marcus Aurelius",
-      role: "CEO, Global Utilities Group",
-      content: "A NewRead reduziu nosso ciclo de faturamento em 4 dias e eliminou 98% das glosas de leitura.",
+      name: "Eng. Ricardo Mendes",
+      role: "CTO, Global Utilities SP",
+      content: "A NewRead elevou nossa auditoria de campo para um nível de precisão cirúrgica. Eliminamos as glosas por erro humano.",
       stars: 5
     },
     {
-      name: "Sabrina Viana",
-      role: "Diretora de Operações, CondoFlow",
-      content: "O sistema offline-first é impecável. Nossos leituristas agora entregam 40% mais produtividade.",
+      name: "Dra. Sabrina Viana",
+      role: "Jurídico, Administradora Paulista",
+      content: "A prova visual geolocalizada da NewRead nos deu a segurança jurídica necessária para vencer 100% das contestações de faturamento.",
       stars: 5
     },
     {
-      name: "Ricardo Mendes",
-      role: "CTO, MeasurePro Solutions",
-      content: "A API de integração é a mais robusta do mercado. Conectamos nosso ERP em menos de 48 horas.",
+      name: "Marcos Aurelius",
+      role: "Diretor de Operações, CondoFlow",
+      content: "A sincronização offline-first é o pilar que permitiu nossa expansão para subsolos e áreas remotas sem perda de dados.",
       stars: 5
     }
   ];
 
   return (
-    <section className="py-40 bg-white racing-grid">
+    <section className="py-40 bg-white engineering-grid">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-24">
-          <span className="text-blue-600 font-black uppercase tracking-[0.4em] text-xs mb-4 block">Proven Efficiency</span>
-          <h3 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter">Impacto <span className="text-blue-600">Real</span></h3>
+          <span className="text-blue-600 font-black uppercase tracking-[0.4em] text-xs mb-4 block">Proven Engineering Precision</span>
+          <h3 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter">Impacto <span className="text-blue-600">Mensurável</span></h3>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">

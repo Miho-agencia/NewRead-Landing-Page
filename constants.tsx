@@ -12,7 +12,9 @@ import {
   CheckCircle2,
   Cpu,
   Zap,
-  LayoutDashboard
+  LayoutDashboard,
+  ShieldCheck,
+  Globe
 } from 'lucide-react';
 import { Feature, Pillar, PricingPlan } from './types';
 
@@ -26,23 +28,23 @@ export const COLORS = {
 
 export const PROBLEMS = [
   {
-    title: "Glosas e Erros Humanos",
-    description: "Leituras manuais em papel geram erros de digitação e inconsistências que custam caro.",
+    title: "Glosas e erros de leitura humana",
+    description: "Leituras manuais geram erros de digitação e inconsistências que resultam em perdas financeiras diretas.",
     icon: ShieldAlert
   },
   {
-    title: "Falta de Evidências",
-    description: "Sem fotos ou geolocalização, a confiança dos moradores cai e as disputas aumentam.",
+    title: "Falta de evidências (fotos/geolocalização)",
+    description: "Sem registros visuais ou GPS, a auditoria é impossível e a insegurança jurídica aumenta.",
     icon: Camera
   },
   {
-    title: "Atrito e Insegurança",
-    description: "A falta de transparência na medição gera reclamações constantes nas assembléias.",
+    title: "Atrito e falta de confiança dos moradores",
+    description: "A falta de transparência no consumo gera reclamações constantes e desgaste em assembleias.",
     icon: Users
   },
   {
-    title: "Processos Lentos",
-    description: "Digitação de planilhas e fechamento manual consomem dias de trabalho da equipe.",
+    title: "Processos manuais lentos e caros",
+    description: "Digitação manual de planilhas consome recursos valiosos que poderiam ser automatizados.",
     icon: Clock
   }
 ];
@@ -52,38 +54,38 @@ export const PILLARS: Pillar[] = [
     id: "manager",
     title: "Manager Web",
     subtitle: "O Cérebro da Operação",
-    description: "Dashboards inteligentes e Business Intelligence para controle total das medições e faturamento.",
+    description: "O cérebro da operação: Dashboards inteligentes e BI para controle total das medições e faturamento em tempo real.",
     features: [
-      "Importação automática de unidades",
-      "Relatórios de consumo por período",
-      "Alertas de vazamentos suspeitos",
-      "Exportação para sistemas contábeis"
+      "Dashboards de BI Avançado",
+      "Gestão de Unidades e Blocos",
+      "Alertas de Vazamentos via IA",
+      "Exportação para ERPs"
     ],
     image: "https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: "reader",
     title: "App Leiturista",
-    subtitle: "Ferramenta de Alta Performance",
-    description: "Otimize o trabalho de campo com rotas inteligentes, geolocalização obrigatória e validação de erros por foto diretamente no app.",
+    subtitle: "Ferramenta de Campo",
+    description: "A ferramenta de campo definitiva: Offline-first, rotas inteligentes e validação geográfica obrigatória.",
     features: [
-      "Rotas georreferenciadas",
-      "Foto obrigatória em caso de erro",
-      "Sincronização offline-first",
-      "Check de consumo negativo"
+      "Offline-first Real",
+      "Validação GPS RTK Ready",
+      "Check de Consumo por Foto",
+      "Sincronização Delta"
     ],
     image: "reader-mockup"
   },
   {
     id: "resident",
     title: "App do Morador",
-    subtitle: "Transparência Absoluta",
-    description: "O único app que oferece transparência total: fotos das leituras, histórico detalhado e acompanhamento de consumo em tempo real.",
+    subtitle: "A Ponta da Transparência",
+    description: "A ponta da transparência: Ofereça ao morador acesso total ao histórico com fotos e gráficos de tendência.",
     features: [
-      "Histórico com evidência fotográfica",
-      "Gráficos de tendência e média diária",
-      "Alertas de consumo atípico via Push",
-      "Perfil com gestão de preferências"
+      "Histórico com Evidência Fotográfica",
+      "Acompanhamento em Tempo Real",
+      "Alertas via Push Notification",
+      "Interface Premium e Intuitiva"
     ],
     image: "resident-mockup"
   }
@@ -91,19 +93,24 @@ export const PILLARS: Pillar[] = [
 
 export const TECH_SPECS: Feature[] = [
   {
-    title: "Offline-First",
-    description: "Sincronização inteligente que garante o trabalho mesmo sem sinal de internet.",
+    title: "Sincronização inteligente (offline-first)",
+    description: "Arquitetura resiliente que garante o funcionamento pleno mesmo em subsolos sem conexão.",
     icon: CloudOff
   },
   {
-    title: "Modularidade",
-    description: "Contrate apenas os módulos que sua empresa de medição realmente precisa.",
+    title: "Redução de custos operacionais",
+    description: "Automação total que elimina a necessidade de digitação e revisão manual de dados.",
+    icon: Zap
+  },
+  {
+    title: "Modularidade (pague apenas pelo que usar)",
+    description: "Sistema flexível que permite contratar apenas os módulos necessários para sua demanda.",
     icon: Cpu
   },
   {
-    title: "Redução de Custos",
-    description: "Diminua em até 40% o tempo gasto com fechamento e gestão de erros.",
-    icon: Zap
+    title: "Segurança de Dados Enterprise",
+    description: "Criptografia de ponta a ponta e conformidade total com a LGPD em todos os níveis.",
+    icon: ShieldCheck
   }
 ];
 
@@ -115,7 +122,7 @@ export const PRICING: PricingPlan[] = [
     description: "Ideal para pequenas empresas de medição iniciando a digitalização.",
     features: [
       "Até 500 unidades",
-      "App Leiturista (Online)",
+      "App Leiturista (Básico)",
       "Manager Web Standard",
       "Suporte via Email",
       "Relatórios Mensais",
@@ -130,12 +137,12 @@ export const PRICING: PricingPlan[] = [
     description: "Perfeito para operações consolidadas que buscam automação total.",
     features: [
       "Unidades Ilimitadas",
-      "App Leiturista Pro (Offline-first)",
+      "App Leiturista Pro (Offline)",
       "BI e Dashboards Avançados",
-      "App do Morador Customizado",
+      "App do Morador Full",
       "Suporte Prioritário 24/7",
-      "Validação por Foto Ilimitada",
-      "Gestão de Rotas Inteligentes"
+      "Validação por Foto",
+      "Gestão de Rotas"
     ],
     cta: "Agendar Demo",
     highlighted: true
@@ -146,7 +153,7 @@ export const PRICING: PricingPlan[] = [
     period: "",
     description: "Soluções customizadas para grandes administradoras e utilities.",
     features: [
-      "White Label (Sua Marca)",
+      "White Label Total",
       "Integração via API Rest",
       "SLA Dedicado",
       "Infraestrutura Exclusiva",

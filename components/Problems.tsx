@@ -20,25 +20,28 @@ const Problems: React.FC = () => {
   };
 
   return (
-    <section id="problemas" className="py-40 bg-slate-50 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-24 items-center">
+    <section id="problemas" className="py-24 md:py-32 lg:py-48 bg-slate-50 relative overflow-hidden">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-24">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
             <span className="text-blue-600 font-black uppercase tracking-[0.4em] text-xs mb-6 block">Diagnóstico Operacional</span>
-            <h3 className="text-5xl md:text-7xl font-black text-slate-900 leading-[0.9] tracking-tighter mb-10">
+            <h3 className="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[0.9] tracking-tighter mb-10">
               Sua medição ainda é <br/><span className="text-red-500">Analógica?</span>
             </h3>
-            <p className="text-xl text-slate-600 font-medium leading-relaxed max-w-lg mb-12">
+            <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed max-w-lg mb-12">
               A ineficiência manual é o maior "vazamento" financeiro da sua operação de utilities.
             </p>
-            <div className="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-xl relative overflow-hidden">
-               <div className="absolute top-0 right-0 p-4 opacity-5"><CheckSquare size={100} /></div>
-               <p className="text-slate-900 font-black text-lg mb-4 italic">"92% das administradoras admitem que erros de leitura são a principal causa de atrito com clientes."</p>
-               <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">— Relatório Mercado 2024</p>
+            <div className="bg-white p-8 md:p-10 rounded-[2.5rem] border border-slate-200 shadow-xl relative overflow-hidden group">
+               <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform duration-700"><CheckSquare size={120} /></div>
+               <p className="text-slate-900 font-black text-xl mb-6 italic leading-snug">"92% das administradoras admitem que erros de leitura são a principal causa de atrito com clientes."</p>
+               <div className="flex items-center gap-3">
+                 <div className="w-10 h-[2px] bg-blue-600"></div>
+                 <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Relatório Mercado 2024</p>
+               </div>
             </div>
           </motion.div>
 
@@ -51,9 +54,9 @@ const Problems: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 onMouseMove={handleMouseMove}
-                className="magnetic-glow bg-white p-8 rounded-[2.5rem] border border-slate-100 flex gap-6 items-center hover:border-blue-200 transition-all group cursor-default shadow-sm hover:shadow-xl"
+                className="magnetic-glow bg-white p-8 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 flex flex-col sm:flex-row gap-6 items-start sm:items-center hover:border-blue-200 transition-all group cursor-default shadow-sm hover:shadow-2xl"
               >
-                <div className="w-16 h-16 rounded-2xl bg-red-50 text-red-500 flex items-center justify-center shrink-0 group-hover:bg-red-500 group-hover:text-white transition-all duration-500">
+                <div className="w-16 h-16 rounded-2xl bg-red-50 text-red-500 flex items-center justify-center shrink-0 group-hover:bg-red-500 group-hover:text-white transition-all duration-500 shadow-sm">
                   <p.icon size={28} />
                 </div>
                 <div>

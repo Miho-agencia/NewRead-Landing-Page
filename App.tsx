@@ -61,12 +61,12 @@ const App: React.FC = () => {
             <section className="py-32 border-y border-slate-100 bg-white overflow-hidden relative">
                <div className="absolute inset-0 bg-slate-50/50 -skew-y-2 origin-left"></div>
               <div className="max-w-7xl mx-auto px-6 relative z-10">
-                <p className="text-center text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-16">Global Network Performance</p>
+                <p className="text-center text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-16">High Performance Engineering Network</p>
                 <div className="flex flex-wrap justify-center items-center gap-16 md:gap-32 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
-                  <span className="text-3xl font-black text-slate-900 tracking-tighter uppercase">Utility<span className="text-blue-600">Group</span></span>
-                  <span className="text-3xl font-black text-slate-900 tracking-tighter uppercase">Condo<span className="text-blue-600">Flow</span></span>
-                  <span className="text-3xl font-black text-slate-900 tracking-tighter uppercase">Measure<span className="text-blue-600">Pro</span></span>
-                  <span className="text-3xl font-black text-slate-900 tracking-tighter uppercase">Water<span className="text-blue-600">Sense</span></span>
+                  <span className="text-3xl font-black text-slate-900 tracking-tighter uppercase">Utility<span className="text-blue-600">Force</span></span>
+                  <span className="text-3xl font-black text-slate-900 tracking-tighter uppercase">Admin<span className="text-blue-600">Core</span></span>
+                  <span className="text-3xl font-black text-slate-900 tracking-tighter uppercase">Measure<span className="text-blue-600">Engine</span></span>
+                  <span className="text-3xl font-black text-slate-900 tracking-tighter uppercase">Water<span className="text-blue-600">Logic</span></span>
                 </div>
               </div>
             </section>
@@ -79,13 +79,13 @@ const App: React.FC = () => {
             <section className="py-40 bg-slate-900 text-white relative overflow-hidden">
                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[160px] pointer-events-none"></div>
                <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
-                  <span className="text-blue-400 font-black uppercase tracking-[0.4em] text-xs mb-8 block">Ready for Deployment?</span>
-                  <h3 className="text-5xl md:text-8xl font-black mb-12 tracking-tighter leading-none italic">Escalabilidade<br/>Sem Fricção.</h3>
+                  <span className="text-blue-400 font-black uppercase tracking-[0.4em] text-xs mb-8 block">Ready for Enterprise Deployment?</span>
+                  <h3 className="text-5xl md:text-8xl font-black mb-12 tracking-tighter leading-none italic uppercase">Escalabilidade<br/>Sem Fricção.</h3>
                   <button 
                     onClick={() => setIsAgentOpen(true)}
                     className="group bg-blue-600 text-white px-16 py-8 rounded-full font-black text-2xl flex items-center gap-6 mx-auto hover:bg-white hover:text-slate-900 transition-all duration-500 shadow-2xl"
                   >
-                    START PILOT 01
+                    DEPLOY PILOT 01
                     <ArrowRight size={32} className="group-hover:translate-x-4 transition-transform duration-500" />
                   </button>
                </div>
